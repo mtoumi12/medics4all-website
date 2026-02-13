@@ -4,8 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Medics4All.ai - Multilingual Medical AI for Global Healthcare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --primary-navy: #1a2332;
+            --secondary-navy: #2c3e50;
+            --dark-gold: #b8860b;
+            --light-gold: #daa520;
+            --accent-gold: #ffd700;
+            --warm-gray: #f5f5f0;
+            --text-light: #64748b;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -13,324 +24,548 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', sans-serif;
             line-height: 1.6;
-            color: #333;
-            background: #fff;
+            color: var(--secondary-navy);
+            background: var(--warm-gray);
         }
 
         /* Header */
         .header {
-            background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
-            color: white;
-            padding: 1rem 0;
             position: fixed;
-            width: 100%;
             top: 0;
+            width: 100%;
+            background: rgba(26, 35, 50, 0.95);
+            backdrop-filter: blur(10px);
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--dark-gold);
         }
 
         .nav-container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 2rem;
+            padding: 0 3rem;
         }
 
         .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
             font-size: 1.5rem;
-            font-weight: bold;
-            color: #fff;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: -0.02em;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .nav-menu a {
-            color: white;
+            color: rgba(255, 255, 255, 0.9);
             text-decoration: none;
-            transition: opacity 0.3s;
+            font-weight: 400;
+            transition: color 0.3s ease;
         }
 
         .nav-menu a:hover {
-            opacity: 0.8;
+            color: var(--accent-gold);
         }
 
         /* Hero Section */
         .hero {
-            background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
-            color: white;
-            padding: 8rem 2rem 4rem;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(26, 35, 50, 0.7), rgba(26, 35, 50, 0.6)), 
+                        url('https://media.istockphoto.com/id/2234059247/photo/mature-60s-female-doctor-shaking-hands-with-young-patient.jpg?s=612x612&w=0&k=20&c=YxQ7QQz8QyQm9rBqFqC4HyYK3r2Rb5PBPfPj3qQq4Z8=') center/cover;
             text-align: center;
+            padding: 0 2rem;
+            color: white;
         }
 
-        .hero-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
+            font-size: 4rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
         }
 
         .hero p {
-            font-size: 1.25rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            line-height: 1.6;
         }
 
         .cta-button {
-            background: #10b981;
+            background: linear-gradient(135deg, var(--dark-gold), var(--light-gold));
             color: white;
-            padding: 1rem 2rem;
+            padding: 1rem 2.5rem;
             border: none;
-            border-radius: 8px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 500;
             cursor: pointer;
             text-decoration: none;
             display: inline-block;
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 20px rgba(184, 134, 11, 0.3);
         }
 
         .cta-button:hover {
+            background: linear-gradient(135deg, var(--light-gold), var(--accent-gold));
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+            box-shadow: 0 8px 30px rgba(184, 134, 11, 0.4);
         }
 
         /* Problem Section */
         .problem-section {
-            padding: 4rem 2rem;
-            background: #f8fafc;
+            padding: 8rem 3rem;
+            background: var(--warm-gray);
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1e40af;
-            font-weight: 700;
         }
 
         .problem-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
         }
 
         .problem-card {
             background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            padding: 3rem 2rem;
+            border-radius: 0;
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.1);
             text-align: center;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dark-gold);
         }
 
         .problem-card i {
-            font-size: 3rem;
-            color: #ef4444;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            color: var(--dark-gold);
+            margin-bottom: 2rem;
         }
 
         .problem-card h3 {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #1e40af;
+            margin-bottom: 1.5rem;
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        .problem-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 1rem;
         }
 
         .stat-highlight {
-            background: linear-gradient(135deg, #10b981, #059669);
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
             color: white;
-            padding: 3rem 2rem;
+            padding: 4rem 3rem;
             text-align: center;
-            margin: 3rem 0;
-            border-radius: 16px;
+            margin: 4rem 0;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .stat-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--dark-gold), var(--light-gold), var(--dark-gold));
         }
 
         .stat-highlight h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+            font-weight: 300;
+        }
+
+        .stat-highlight p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
         }
 
         /* Solution Section */
         .solution-section {
-            padding: 4rem 2rem;
+            padding: 8rem 3rem;
             background: white;
         }
 
         .solution-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem;
+            margin-top: 5rem;
         }
 
         .feature-card {
-            background: #f0f9ff;
-            padding: 2rem;
-            border-radius: 12px;
-            border: 2px solid #0ea5e9;
+            background: var(--warm-gray);
+            padding: 3rem 2rem;
+            border-radius: 0;
+            border: 2px solid var(--dark-gold);
             text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(26, 35, 50, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 20px 60px rgba(26, 35, 50, 0.15);
         }
 
         .feature-card i {
-            font-size: 2.5rem;
-            color: #0ea5e9;
-            margin-bottom: 1rem;
+            font-size: 3.5rem;
+            color: var(--dark-gold);
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .feature-card:hover i {
+            color: var(--accent-gold);
         }
 
         .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #1e40af;
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
         }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
 
         /* Team Section */
         .team-section {
-            padding: 4rem 2rem;
-            background: #f8fafc;
+            padding: 8rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--warm-gray);
         }
 
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            margin-top: 5rem;
         }
 
         .team-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
             text-align: center;
+            background: white;
+            padding: 2.5rem;
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
         }
 
         .team-avatar {
-            width: 100px;
-            height: 100px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
-            background: linear-gradient(135deg, #1e40af, #0ea5e9);
-            margin: 0 auto 1rem;
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            margin: 0 auto 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 2rem;
-            font-weight: bold;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent-gold);
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.2);
+            border: 3px solid var(--dark-gold);
         }
 
-        .team-card h3 {
-            font-size: 1.3rem;
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--primary-navy);
             margin-bottom: 0.5rem;
-            color: #1e40af;
         }
 
-        .team-card .role {
-            color: #10b981;
-            font-weight: 600;
+        .team-role {
+            color: var(--dark-gold);
+            font-weight: 500;
             margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .team-hospital {
+            color: var(--secondary-navy);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-bio {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
         }
 
         /* Advisors Section */
         .advisors-section {
-            padding: 4rem 2rem;
+            padding: 8rem 3rem;
             background: white;
         }
 
         .advisor-card {
-            background: #ecfdf5;
-            border: 2px solid #10b981;
-            padding: 1.5rem;
-            border-radius: 12px;
+            background: var(--warm-gray);
+            border: 2px solid var(--dark-gold);
+            padding: 2.5rem 2rem;
             text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(26, 35, 50, 0.1);
         }
 
-        .advisor-card .hospital {
-            color: #059669;
+        .advisor-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 20px 60px rgba(26, 35, 50, 0.15);
+        }
+
+        .advisor-card .team-hospital {
+            color: var(--dark-gold);
             font-weight: 600;
             font-size: 0.9rem;
+            margin-bottom: 1.5rem;
         }
 
         /* Traction Section */
         .traction-section {
-            padding: 4rem 2rem;
-            background: #f8fafc;
+            padding: 8rem 3rem;
+            background: var(--warm-gray);
         }
 
         .traction-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
         }
 
         .traction-card {
             background: white;
-            padding: 2rem;
-            border-radius: 12px;
+            padding: 3rem 2rem;
             text-align: center;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.1);
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
         }
 
-        .traction-card .number {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #1e40af;
+        .traction-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dark-gold);
+        }
+
+        .traction-number {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--dark-gold);
             display: block;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
         }
 
-        .traction-card .metric {
-            color: #10b981;
-            font-weight: 600;
-            margin-top: 0.5rem;
+        .traction-metric {
+            color: var(--primary-navy);
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
         }
 
         /* Demo Section */
         .demo-section {
-            padding: 4rem 2rem;
-            background: #1e40af;
+            padding: 8rem 3rem;
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
             color: white;
             text-align: center;
+        }
+
+        .demo-section .section-title {
+            color: white;
+        }
+
+        .demo-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
         }
 
         .demo-video {
             max-width: 800px;
-            margin: 2rem auto;
-            background: #374151;
-            padding: 2rem;
-            border-radius: 12px;
+            margin: 3rem auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4rem 3rem;
+            border-radius: 0;
+            text-align: center;
+            border: 2px solid var(--dark-gold);
+        }
+
+        .demo-video i {
+            color: var(--accent-gold);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            color: white;
+            padding: 6rem 3rem;
+            position: relative;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--dark-gold), var(--light-gold), var(--dark-gold));
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
             text-align: center;
         }
 
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            color: var(--accent-gold);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: white;
+        }
+
+
         /* Footer */
         .footer {
-            background: #1f2937;
+            background: var(--primary-navy);
             color: white;
-            padding: 3rem 2rem 2rem;
+            padding: 4rem 3rem 2rem;
             text-align: center;
         }
 
         .footer-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
+        }
+
+        .footer-text {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-top: 2rem;
         }
 
         .contact-info {
             display: flex;
             justify-content: center;
-            gap: 2rem;
+            gap: 3rem;
             margin-bottom: 2rem;
             flex-wrap: wrap;
         }
@@ -338,13 +573,22 @@
         .contact-item {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
+            color: var(--accent-gold);
+        }
+
+        .contact-item i {
+            color: var(--dark-gold);
+        }
+
+        .contact-item span {
+            color: white;
         }
 
         /* Responsive */
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
             
             .hero p {
@@ -355,9 +599,26 @@
                 display: none;
             }
             
+            .problem-section,
+            .solution-section,
+            .team-section,
+            .advisors-section,
+            .traction-section,
+            .demo-section {
+                padding: 4rem 1.5rem;
+            }
+            
             .contact-info {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
+            }
+            
+            .problem-grid,
+            .solution-grid,
+            .team-grid,
+            .traction-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
             }
         }
     </style>
@@ -367,7 +628,7 @@
     <header class="header">
         <nav class="nav-container">
             <div class="logo">
-                <i class="fas fa-stethoscope"></i> Medics4All.ai
+                <img src="logo-m4.png" alt="Medics4All Logo"> Medics4All.ai
             </div>
             <ul class="nav-menu">
                 <li><a href="#problem">Problem</a></li>
@@ -381,7 +642,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-container">
+        <div class="hero-content">
             <h1>Breaking Language Barriers in Healthcare</h1>
             <p>The first AI medical scribe that enables real-time multilingual doctor-patient communication while automatically generating compliant bilingual medical records.</p>
             <a href="#demo" class="cta-button">
@@ -453,12 +714,17 @@
             <h2 class="section-title">Our Team</h2>
             <div class="team-grid">
                 <div class="team-card">
-                    <div class="team-avatar">FN</div>
-                    <h3>[Your Name]</h3>
-                    <div class="role">Founder & CEO</div>
-                    <p>Background in AI/ML and healthcare technology. Previously worked at [Your Previous Experience]. Passionate about solving global healthcare accessibility.</p>
+                    <div class="team-avatar">MT</div>
+                    <h3 class="team-name">Mr. Mehdi Toumi</h3>
+                    <div class="team-role">Founder & CEO</div>
+                    <div class="team-bio">Machine Learning Engineer with expertise in Computer Vision, Signal Processing, and Data Science. Former MIT AIML Program Mentor and ex-Toshiba ML Research Engineer. PhD in Machine Learning and Computer Engineering from Illinois Institute of Technology with extensive experience in multimodal AI and healthcare applications.</div>
                 </div>
-                <!-- Add more team members as needed -->
+                <div class="team-card">
+                    <div class="team-avatar">OA</div>
+                    <h3 class="team-name">Mr. Oluwaseun Ajayi</h3>
+                    <div class="team-role">Co-Founder & CTO</div>
+                    <div class="team-bio">PhD Candidate and Graduate Research Assistant at Illinois Institute of Technology. Specialized in Electrical Engineering with focus on AI applications in healthcare. Research Assistant with 5+ years experience in machine learning and system integration projects.</div>
+                </div>
             </div>
         </div>
     </section>
@@ -466,28 +732,79 @@
     <!-- Advisors Section -->
     <section class="advisors-section">
         <div class="container">
-            <h2 class="section-title">Clinical Advisory Board</h2>
+            <h2 class="section-title">Advisory Board</h2>
             <div class="team-grid">
                 <div class="advisor-card">
-                    <div class="team-avatar">DA</div>
-                    <h3>Dr. [Advisor Name]</h3>
-                    <div class="role">Senior Radiologist</div>
-                    <div class="hospital">King Faisal Specialist Hospital</div>
-                    <p>15+ years experience in medical imaging. Leading pilot deployment across Saudi Arabia.</p>
+                    <div class="team-avatar">MS</div>
+                    <h3 class="team-name">Dr. Maryam Saleh</h3>
+                    <div class="team-role">Executive Director</div>
+                    <div class="team-hospital">Ed Kaplan Family Institute for Innovation and Tech Entrepreneurship</div>
+                    <div class="team-bio">Business Strategy and Technology Transfer expert with extensive experience in generative AI, relationship development, and innovation leadership. Former VP at VPIGM and Entrepreneur in Residence at Abundant Venture Partners.</div>
                 </div>
                 <div class="advisor-card">
-                    <div class="team-avatar">DB</div>
-                    <h3>Dr. [Advisor Name]</h3>
-                    <div class="role">Emergency Medicine</div>
-                    <div class="hospital">National Guard Hospital</div>
-                    <p>Expert in high-volume patient care and multilingual medical documentation workflows.</p>
+                    <div class="team-avatar">MW</div>
+                    <h3 class="team-name">Professor Miles Wernick</h3>
+                    <div class="team-role">CTO & Co-Founder</div>
+                    <div class="team-hospital">ADM Diagnostics</div>
+                    <div class="team-bio">Leading AI product development and technical innovation for FDA-cleared medical imaging solutions. Professor Emeritus and former Director of Medical Imaging Research Center at Illinois Institute of Technology with 28+ years of experience in healthcare AI.</div>
                 </div>
                 <div class="advisor-card">
-                    <div class="team-avatar">DC</div>
-                    <h3>Dr. [Advisor Name]</h3>
-                    <div class="role">Internal Medicine</div>
-                    <div class="hospital">King Abdulaziz Medical City</div>
-                    <p>Specializes in treating diverse international patient populations in Saudi Arabia.</p>
+                    <div class="team-avatar">AJ</div>
+                    <h3 class="team-name">MD Anwar Jebran</h3>
+                    <div class="team-role">Medical Advisor</div>
+                    <div class="team-hospital">Healthcare Innovation Specialist</div>
+                    <div class="team-bio">Experienced physician with expertise in medical technology integration and healthcare innovation. Provides clinical guidance and medical domain expertise for AI healthcare applications.</div>
+                </div>
+                <div class="advisor-card">
+                    <div class="team-avatar">PA</div>
+                    <h3 class="team-name">Peter Ackerman</h3>
+                    <div class="team-role">Regulatory Affairs Advisor</div>
+                    <div class="team-hospital">Novo Compliance</div>
+                    <div class="team-bio">President & Founder with extensive experience in regulatory compliance for life sciences. Specializes in FDA regulations, medical devices, and combination products with deep expertise in biotechnology and pharmaceutical regulatory affairs.</div>
+                </div>
+                <div class="advisor-card">
+                    <div class="team-avatar">AS</div>
+                    <h3 class="team-name">Aicha Salman</h3>
+                    <div class="team-role">Remote Multilingual Medical Interpreter</div>
+                    <div class="team-hospital">Language Services Expert</div>
+                    <div class="team-bio">Specialist in multilingual medical communication and interpretation services. Provides expertise in cross-cultural healthcare communication and ensures cultural sensitivity in medical AI applications.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaborators Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Clinical Collaborators</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">YM</div>
+                    <h3 class="team-name">MD Yazid Mughrabi</h3>
+                    <div class="team-role">Board-Certified Neurosurgeon</div>
+                    <div class="team-hospital">Ministry of National Guard Health Affairs (MNGHA)</div>
+                    <div class="team-bio">Staff Physician in Neurosurgery specializing in neurotrauma and pediatric neurosurgery. Neurosurgery Resident at King Faisal Specialist Hospital and Research Center with 6+ years of experience in complex surgical procedures and multilingual patient care.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">UA</div>
+                    <h3 class="team-name">MD Umar Alabasi</h3>
+                    <div class="team-role">Assistant Professor</div>
+                    <div class="team-hospital">King AbdulAziz University - Department of Physical Therapy</div>
+                    <div class="team-bio">PhD in Rehabilitation Science from University of Florida with expertise in clinical research and sports injuries. Head of Department with extensive experience in curriculum development and academic leadership in healthcare education.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">RA</div>
+                    <h3 class="team-name">Dr. Reem Almutairy</h3>
+                    <div class="team-role">Infectious Diseases Clinical Pharmacy Specialist</div>
+                    <div class="team-hospital">King Fahad Armed Forces Hospital</div>
+                    <div class="team-bio">Doctor of Pharmacy (PharmD) from King AbdulAziz University with specialization in infectious diseases clinical pharmacy. Clinical Pharmacist and Pharmacy Practice Resident with expertise in antimicrobial stewardship and clinical research.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">AA</div>
+                    <h3 class="team-name">Dr. Arwa Alsubait</h3>
+                    <div class="team-role">Biomedical Scientist & Deputy Chairman</div>
+                    <div class="team-hospital">King Abdullah International Medical Research Center (KAIMRC)</div>
+                    <div class="team-bio">PhD, CInP, CInO - Cell Therapy and Cancer Research specialist with innovation leadership experience. Deputy Chairman of Cell Therapy Research Department and Adjunct Assistant Professor focusing on translational research and biotech development.</div>
                 </div>
             </div>
         </div>
@@ -499,20 +816,20 @@
             <h2 class="section-title">Early Traction</h2>
             <div class="traction-grid">
                 <div class="traction-card">
-                    <span class="number">5</span>
-                    <div class="metric">Hospital Pilots Committed</div>
+                    <span class="traction-number">5</span>
+                    <div class="traction-metric">Hospital Pilots Committed</div>
                 </div>
                 <div class="traction-card">
-                    <span class="number">95%</span>
-                    <div class="metric">Translation Accuracy</div>
+                    <span class="traction-number">95%</span>
+                    <div class="traction-metric">Translation Accuracy</div>
                 </div>
                 <div class="traction-card">
-                    <span class="number">12</span>
-                    <div class="metric">Saudi Doctor Advisors</div>
+                    <span class="traction-number">12</span>
+                    <div class="traction-metric">Saudi Doctor Advisors</div>
                 </div>
                 <div class="traction-card">
-                    <span class="number">$465M</span>
-                    <div class="metric">Serviceable Market</div>
+                    <span class="traction-number">$465M</span>
+                    <div class="traction-metric">Serviceable Market</div>
                 </div>
             </div>
         </div>
@@ -524,12 +841,13 @@
             <h2 class="section-title">See It In Action</h2>
             <p>Watch how our AI handles real-time medical translation between Arabic and English</p>
             <div class="demo-video">
-                <i class="fas fa-play-circle" style="font-size: 4rem; margin-bottom: 1rem;"></i>
-                <p style="font-size: 1.2rem; margin-bottom: 1rem;">Product Demo Video</p>
-                <p style="opacity: 0.8;">Doctor consultation: English → Arabic translation → Bilingual medical record generation</p>
-                <!-- Replace with actual video embed when ready -->
+                <video width="100%" height="400" controls style="max-width: 800px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                    <source src="Medics4All.mp4" type="video/mp4">
+                    <p>Your browser does not support the video tag. <a href="Medics4All.mp4">Download the video here</a></p>
+                </video>
+                <p style="font-size: 1.1rem; margin: 1.5rem 0 1rem; color: rgba(255,255,255,0.9);">Doctor consultation: English → Arabic translation → Bilingual medical record generation</p>
                 <div style="margin-top: 2rem;">
-                    <a href="#" class="cta-button">Request Private Demo</a>
+                    <a href="#contact" class="cta-button">Request Private Demo</a>
                 </div>
             </div>
         </div>
@@ -552,7 +870,7 @@
                     <span>San Francisco, CA</span>
                 </div>
             </div>
-            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #374151;">
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--dark-gold);">
                 <p>&copy; 2024 Medics4All.ai - Breaking language barriers in healthcare worldwide</p>
             </div>
         </div>
