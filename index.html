@@ -471,32 +471,33 @@
             letter-spacing: 0.05em;
         }
 
-        /* Demo Section */
+        /* Demo Section - Less prominent styling */
         .demo-section {
-            padding: 8rem 3rem;
-            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
-            color: white;
+            padding: 6rem 3rem;
+            background: var(--warm-gray);
+            color: var(--primary-navy);
             text-align: center;
         }
 
         .demo-section .section-title {
-            color: white;
+            color: var(--primary-navy);
         }
 
         .demo-section p {
-            color: rgba(255, 255, 255, 0.9);
-            font-size: 1.2rem;
+            color: var(--text-light);
+            font-size: 1.1rem;
             margin-bottom: 3rem;
         }
 
         .demo-video {
             max-width: 800px;
             margin: 3rem auto;
-            background: rgba(0, 0, 0, 0.3);
-            padding: 4rem 3rem;
-            border-radius: 0;
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 8px;
             text-align: center;
             border: 2px solid var(--dark-gold);
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.1);
         }
 
         .demo-video i {
@@ -657,8 +658,8 @@
         <div class="hero-content">
             <h1>Breaking Language Barriers in Healthcare</h1>
             <p>The first AI medical scribe that enables real-time multilingual doctor-patient communication while automatically generating compliant bilingual medical records.</p>
-            <a href="#demo" class="cta-button">
-                <i class="fas fa-play"></i> Watch Demo
+            <a href="#solution" class="cta-button">
+                <i class="fas fa-arrow-right"></i> Learn More
             </a>
         </div>
     </section>
@@ -671,22 +672,22 @@
                 <div class="problem-card">
                     <i class="fas fa-exclamation-triangle"></i>
                     <h3>Communication Barriers</h3>
-                    <p>25M+ US patients and billions globally can't effectively communicate with their doctors due to language barriers, leading to medical errors and poor outcomes.</p>
+                    <p>25.7M+ US patients with limited English proficiency can't effectively communicate with their doctors due to language barriers, leading to medical errors and poor outcomes.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-clock"></i>
                     <h3>Documentation Burden</h3>
-                    <p>Doctors spend 40% of their time on paperwork, switching between languages and translation apps, reducing actual patient care time.</p>
+                    <p>Doctors spend 75% of their scheduled time on EHR and documentation tasks, with most occurring outside clinical hours, reducing actual patient care time.</p>
                 </div>
                 <div class="problem-card">
                     <i class="fas fa-gavel"></i>
                     <h3>Compliance Costs</h3>
-                    <p>Healthcare systems face legal liability for untranslated materials. Current solutions cost $100-300 per interpreter session.</p>
+                    <p>Healthcare systems face legal liability for untranslated materials. Professional interpreter services cost $45-150 per hour, with litigation damages reaching millions for language access failures.</p>
                 </div>
             </div>
             <div class="stat-highlight">
-                <h2>$2.1 Billion</h2>
-                <p>Total addressable market for multilingual medical documentation across MENA, Africa, and US immigrant healthcare</p>
+                <h2>$8.4 Billion</h2>
+                <p>Projected MENA healthcare AI market by 2033, with growing demand for multilingual medical documentation solutions across Arabic-speaking regions</p>
             </div>
         </div>
     </section>
@@ -760,10 +761,8 @@
                     <div class="team-bio">Business Strategy and Technology Transfer expert with extensive experience in generative AI, relationship development, and innovation leadership. Former VP at VPIGM and Entrepreneur in Residence at Abundant Venture Partners.</div>
                 </div>
                 <div class="advisor-card">
-                    <div class="team-avatar">
-                        <img src="ProfWernick.jpg" alt="Professor Miles Wernick">
-                    </div>
-                    <h3 class="team-name">Professor Miles Wernick</h3>
+                    <div class="team-avatar placeholder">MW</div>
+                    <h3 class="team-name">Professor MW</h3>
                     <div class="team-role">CTO & Co-Founder</div>
                     <div class="team-hospital">ADM Diagnostics</div>
                     <div class="team-bio">Leading AI product development and technical innovation for FDA-cleared medical imaging solutions. Professor Emeritus and former Director of Medical Imaging Research Center at Illinois Institute of Technology with 28+ years of experience in healthcare AI.</div>
@@ -856,8 +855,8 @@
                     <div class="traction-metric">Saudi Doctor Advisors</div>
                 </div>
                 <div class="traction-card">
-                    <span class="traction-number">$465M</span>
-                    <div class="traction-metric">Serviceable Market</div>
+                    <span class="traction-number">$8.4B</span>
+                    <div class="traction-metric">MENA AI Healthcare Market by 2033</div>
                 </div>
             </div>
         </div>
@@ -873,7 +872,7 @@
                     <source src="Medics4All.mp4" type="video/mp4">
                     <p>Your browser does not support the video tag. <a href="Medics4All.mp4">Download the video here</a></p>
                 </video>
-                <p style="font-size: 1.1rem; margin: 1.5rem 0 1rem; color: rgba(255,255,255,0.9);">Doctor consultation: English → Arabic translation → Bilingual medical record generation</p>
+                <p style="font-size: 1.1rem; margin: 1.5rem 0 1rem; color: var(--text-light);">Doctor consultation: English → Arabic translation → Bilingual medical record generation</p>
                 <div style="margin-top: 2rem;">
                     <a href="#contact" class="cta-button">Request Private Demo</a>
                 </div>
