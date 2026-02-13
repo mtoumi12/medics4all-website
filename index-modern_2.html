@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medics4All.ai - Multilingual Medical AI for Global Healthcare</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-navy: #1a2332;
+            --secondary-navy: #2c3e50;
+            --dark-gold: #b8860b;
+            --light-gold: #daa520;
+            --accent-gold: #ffd700;
+            --warm-gray: #f5f5f0;
+            --text-light: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--secondary-navy);
+            background: var(--warm-gray);
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(26, 35, 50, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--dark-gold);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 3rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            letter-spacing: -0.02em;
+        }
+
+        .logo img {
+            height: 32px;
+            width: auto;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+        }
+
+        .nav-menu a {
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(rgba(26, 35, 50, 0.7), rgba(26, 35, 50, 0.6)), 
+                        url('https://media.istockphoto.com/id/2234059247/photo/mature-60s-female-doctor-shaking-hands-with-young-patient.jpg?s=612x612&w=0&k=20&c=YxQ7QQz8QyQm9rBqFqC4HyYK3r2Rb5PBPfPj3qQq4Z8=') center/cover;
+            text-align: center;
+            padding: 0 2rem;
+            color: white;
+        }
+
+        .hero-content {
+            max-width: 900px;
+        }
+
+        .hero-subtitle {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 300;
+            color: white;
+            margin-bottom: 2rem;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 3rem;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--dark-gold), var(--light-gold));
+            color: white;
+            padding: 1rem 2.5rem;
+            border: none;
+            border-radius: 0;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            box-shadow: 0 4px 20px rgba(184, 134, 11, 0.3);
+        }
+
+        .cta-button:hover {
+            background: linear-gradient(135deg, var(--light-gold), var(--accent-gold));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(184, 134, 11, 0.4);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 8rem 3rem;
+            background: var(--warm-gray);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-bottom: 4rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 0;
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .problem-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dark-gold);
+        }
+
+        .problem-card i {
+            font-size: 3.5rem;
+            color: var(--dark-gold);
+            margin-bottom: 2rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-navy);
+            font-weight: 500;
+        }
+
+        .problem-card p {
+            color: var(--text-light);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .stat-highlight {
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            color: white;
+            padding: 4rem 3rem;
+            text-align: center;
+            margin: 4rem 0;
+            border-radius: 0;
+            position: relative;
+        }
+
+        .stat-highlight::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--dark-gold), var(--light-gold), var(--dark-gold));
+        }
+
+        .stat-highlight h2 {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-gold);
+            font-weight: 300;
+        }
+
+        .stat-highlight p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 8rem 3rem;
+            background: white;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 300;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 4rem;
+            margin-top: 5rem;
+        }
+
+        .feature-card {
+            background: var(--warm-gray);
+            padding: 3rem 2rem;
+            border-radius: 0;
+            border: 2px solid var(--dark-gold);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(26, 35, 50, 0.1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 20px 60px rgba(26, 35, 50, 0.15);
+        }
+
+        .feature-card i {
+            font-size: 3.5rem;
+            color: var(--dark-gold);
+            margin-bottom: 2rem;
+            transition: color 0.3s ease;
+        }
+
+        .feature-card:hover i {
+            color: var(--accent-gold);
+        }
+
+        .feature-card h3 {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--primary-navy);
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.01em;
+        }
+
+        .feature-card p {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+
+        /* Team Section */
+        .team-section {
+            padding: 8rem 3rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--warm-gray);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 4rem;
+            margin-top: 5rem;
+        }
+
+        .team-card {
+            text-align: center;
+            background: white;
+            padding: 2.5rem;
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .team-avatar {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            margin: 0 auto 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--accent-gold);
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.2);
+            border: 3px solid var(--dark-gold);
+        }
+
+        .team-name {
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--primary-navy);
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--dark-gold);
+            font-weight: 500;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .team-hospital {
+            color: var(--secondary-navy);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .team-bio {
+            color: var(--text-light);
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Advisors Section */
+        .advisors-section {
+            padding: 8rem 3rem;
+            background: white;
+        }
+
+        .advisor-card {
+            background: var(--warm-gray);
+            border: 2px solid var(--dark-gold);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 40px rgba(26, 35, 50, 0.1);
+        }
+
+        .advisor-card:hover {
+            transform: translateY(-5px);
+            background: white;
+            box-shadow: 0 20px 60px rgba(26, 35, 50, 0.15);
+        }
+
+        .advisor-card .team-hospital {
+            color: var(--dark-gold);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Traction Section */
+        .traction-section {
+            padding: 8rem 3rem;
+            background: var(--warm-gray);
+        }
+
+        .traction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+
+        .traction-card {
+            background: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.1);
+            transition: transform 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .traction-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--dark-gold);
+        }
+
+        .traction-number {
+            font-size: 3rem;
+            font-weight: 300;
+            color: var(--dark-gold);
+            display: block;
+            margin-bottom: 1rem;
+            letter-spacing: -0.02em;
+        }
+
+        .traction-metric {
+            color: var(--primary-navy);
+            font-weight: 500;
+            font-size: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 8rem 3rem;
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            color: white;
+            text-align: center;
+        }
+
+        .demo-section .section-title {
+            color: white;
+        }
+
+        .demo-section p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.2rem;
+            margin-bottom: 3rem;
+        }
+
+        .demo-video {
+            max-width: 800px;
+            margin: 3rem auto;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 4rem 3rem;
+            border-radius: 0;
+            text-align: center;
+            border: 2px solid var(--dark-gold);
+        }
+
+        .demo-video i {
+            color: var(--accent-gold);
+        }
+
+        /* Stats Section */
+        .stats-section {
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+            color: white;
+            padding: 6rem 3rem;
+            position: relative;
+        }
+
+        .stats-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--dark-gold), var(--light-gold), var(--dark-gold));
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 4rem;
+            margin-top: 4rem;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 300;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+            color: var(--accent-gold);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: white;
+        }
+
+
+        /* Footer */
+        .footer {
+            background: var(--primary-navy);
+            color: white;
+            padding: 4rem 3rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .footer-text {
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            color: var(--accent-gold);
+        }
+
+        .contact-item i {
+            color: var(--dark-gold);
+        }
+
+        .contact-item span {
+            color: white;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .problem-section,
+            .solution-section,
+            .team-section,
+            .advisors-section,
+            .traction-section,
+            .demo-section {
+                padding: 4rem 1.5rem;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            
+            .problem-grid,
+            .solution-grid,
+            .team-grid,
+            .traction-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <img src="logo-m4.png" alt="Medics4All Logo"> Medics4All.ai
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Breaking Language Barriers in Healthcare</h1>
+            <p>The first AI medical scribe that enables real-time multilingual doctor-patient communication while automatically generating compliant bilingual medical records.</p>
+            <a href="#demo" class="cta-button">
+                <i class="fas fa-play"></i> Watch Demo
+            </a>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem-section">
+        <div class="container">
+            <h2 class="section-title">The Global Healthcare Language Crisis</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Communication Barriers</h3>
+                    <p>25M+ US patients and billions globally can't effectively communicate with their doctors due to language barriers, leading to medical errors and poor outcomes.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Documentation Burden</h3>
+                    <p>Doctors spend 40% of their time on paperwork, switching between languages and translation apps, reducing actual patient care time.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-gavel"></i>
+                    <h3>Compliance Costs</h3>
+                    <p>Healthcare systems face legal liability for untranslated materials. Current solutions cost $100-300 per interpreter session.</p>
+                </div>
+            </div>
+            <div class="stat-highlight">
+                <h2>$2.1 Billion</h2>
+                <p>Total addressable market for multilingual medical documentation across MENA, Africa, and US immigrant healthcare</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="solution-section">
+        <div class="container">
+            <h2 class="section-title">Our Solution: Real-Time Medical Translation AI</h2>
+            <div class="solution-grid">
+                <div class="feature-card">
+                    <i class="fas fa-microphone"></i>
+                    <h3>Real-Time Translation</h3>
+                    <p>Doctor speaks English → Patient hears Arabic. Patient responds in Arabic → Doctor receives English translation instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-medical"></i>
+                    <h3>Bilingual Documentation</h3>
+                    <p>Automatically generates medical records in both languages with proper medical terminology and cultural context.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Regulatory Compliance</h3>
+                    <p>Built-in CBAHI, JCI, and HIPAA compliance. Meets legal requirements for multilingual healthcare documentation.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Multi-Dialect Support</h3>
+                    <p>Optimized for Arabic, African dialects, and underserved languages that Google Translate can't handle accurately.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">MT</div>
+                    <h3 class="team-name">Mr. Mehdi Toumi</h3>
+                    <div class="team-role">Founder & CEO</div>
+                    <div class="team-bio">Machine Learning Engineer with expertise in Computer Vision, Signal Processing, and Data Science. Former MIT AIML Program Mentor and ex-Toshiba ML Research Engineer. PhD in Machine Learning and Computer Engineering from Illinois Institute of Technology with extensive experience in multimodal AI and healthcare applications.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">OA</div>
+                    <h3 class="team-name">Mr. Oluwaseun Ajayi</h3>
+                    <div class="team-role">Co-Founder & CTO</div>
+                    <div class="team-bio">PhD Candidate and Graduate Research Assistant at Illinois Institute of Technology. Specialized in Electrical Engineering with focus on AI applications in healthcare. Research Assistant with 5+ years experience in machine learning and system integration projects.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Advisors Section -->
+    <section class="advisors-section">
+        <div class="container">
+            <h2 class="section-title">Advisory Board</h2>
+            <div class="team-grid">
+                <div class="advisor-card">
+                    <div class="team-avatar">MS</div>
+                    <h3 class="team-name">Dr. Maryam Saleh</h3>
+                    <div class="team-role">Executive Director</div>
+                    <div class="team-hospital">Ed Kaplan Family Institute for Innovation and Tech Entrepreneurship</div>
+                    <div class="team-bio">Business Strategy and Technology Transfer expert with extensive experience in generative AI, relationship development, and innovation leadership. Former VP at VPIGM and Entrepreneur in Residence at Abundant Venture Partners.</div>
+                </div>
+                <div class="advisor-card">
+                    <div class="team-avatar">MW</div>
+                    <h3 class="team-name">Professor Miles Wernick</h3>
+                    <div class="team-role">CTO & Co-Founder</div>
+                    <div class="team-hospital">ADM Diagnostics</div>
+                    <div class="team-bio">Leading AI product development and technical innovation for FDA-cleared medical imaging solutions. Professor Emeritus and former Director of Medical Imaging Research Center at Illinois Institute of Technology with 28+ years of experience in healthcare AI.</div>
+                </div>
+                <div class="advisor-card">
+                    <div class="team-avatar">AJ</div>
+                    <h3 class="team-name">MD Anwar Jebran</h3>
+                    <div class="team-role">Medical Advisor</div>
+                    <div class="team-hospital">Healthcare Innovation Specialist</div>
+                    <div class="team-bio">Experienced physician with expertise in medical technology integration and healthcare innovation. Provides clinical guidance and medical domain expertise for AI healthcare applications.</div>
+                </div>
+                <div class="advisor-card">
+                    <div class="team-avatar">PA</div>
+                    <h3 class="team-name">Peter Ackerman</h3>
+                    <div class="team-role">Regulatory Affairs Advisor</div>
+                    <div class="team-hospital">Novo Compliance</div>
+                    <div class="team-bio">President & Founder with extensive experience in regulatory compliance for life sciences. Specializes in FDA regulations, medical devices, and combination products with deep expertise in biotechnology and pharmaceutical regulatory affairs.</div>
+                </div>
+                <div class="advisor-card">
+                    <div class="team-avatar">AS</div>
+                    <h3 class="team-name">Aicha Salman</h3>
+                    <div class="team-role">Remote Multilingual Medical Interpreter</div>
+                    <div class="team-hospital">Language Services Expert</div>
+                    <div class="team-bio">Specialist in multilingual medical communication and interpretation services. Provides expertise in cross-cultural healthcare communication and ensures cultural sensitivity in medical AI applications.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Collaborators Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title">Clinical Collaborators</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">YM</div>
+                    <h3 class="team-name">MD Yazid Mughrabi</h3>
+                    <div class="team-role">Board-Certified Neurosurgeon</div>
+                    <div class="team-hospital">Ministry of National Guard Health Affairs (MNGHA)</div>
+                    <div class="team-bio">Staff Physician in Neurosurgery specializing in neurotrauma and pediatric neurosurgery. Neurosurgery Resident at King Faisal Specialist Hospital and Research Center with 6+ years of experience in complex surgical procedures and multilingual patient care.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">UA</div>
+                    <h3 class="team-name">MD Umar Alabasi</h3>
+                    <div class="team-role">Assistant Professor</div>
+                    <div class="team-hospital">King AbdulAziz University - Department of Physical Therapy</div>
+                    <div class="team-bio">PhD in Rehabilitation Science from University of Florida with expertise in clinical research and sports injuries. Head of Department with extensive experience in curriculum development and academic leadership in healthcare education.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">RA</div>
+                    <h3 class="team-name">Dr. Reem Almutairy</h3>
+                    <div class="team-role">Infectious Diseases Clinical Pharmacy Specialist</div>
+                    <div class="team-hospital">King Fahad Armed Forces Hospital</div>
+                    <div class="team-bio">Doctor of Pharmacy (PharmD) from King AbdulAziz University with specialization in infectious diseases clinical pharmacy. Clinical Pharmacist and Pharmacy Practice Resident with expertise in antimicrobial stewardship and clinical research.</div>
+                </div>
+                <div class="team-card">
+                    <div class="team-avatar">AA</div>
+                    <h3 class="team-name">Dr. Arwa Alsubait</h3>
+                    <div class="team-role">Biomedical Scientist & Deputy Chairman</div>
+                    <div class="team-hospital">King Abdullah International Medical Research Center (KAIMRC)</div>
+                    <div class="team-bio">PhD, CInP, CInO - Cell Therapy and Cancer Research specialist with innovation leadership experience. Deputy Chairman of Cell Therapy Research Department and Adjunct Assistant Professor focusing on translational research and biotech development.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traction Section -->
+    <section id="traction" class="traction-section">
+        <div class="container">
+            <h2 class="section-title">Early Traction</h2>
+            <div class="traction-grid">
+                <div class="traction-card">
+                    <span class="traction-number">5</span>
+                    <div class="traction-metric">Hospital Pilots Committed</div>
+                </div>
+                <div class="traction-card">
+                    <span class="traction-number">95%</span>
+                    <div class="traction-metric">Translation Accuracy</div>
+                </div>
+                <div class="traction-card">
+                    <span class="traction-number">12</span>
+                    <div class="traction-metric">Saudi Doctor Advisors</div>
+                </div>
+                <div class="traction-card">
+                    <span class="traction-number">$465M</span>
+                    <div class="traction-metric">Serviceable Market</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2 class="section-title">See It In Action</h2>
+            <p>Watch how our AI handles real-time medical translation between Arabic and English</p>
+            <div class="demo-video">
+                <video width="100%" height="400" controls style="max-width: 800px; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                    <source src="Medics4All.mp4" type="video/mp4">
+                    <p>Your browser does not support the video tag. <a href="Medics4All.mp4">Download the video here</a></p>
+                </video>
+                <p style="font-size: 1.1rem; margin: 1.5rem 0 1rem; color: rgba(255,255,255,0.9);">Doctor consultation: English → Arabic translation → Bilingual medical record generation</p>
+                <div style="margin-top: 2rem;">
+                    <a href="#contact" class="cta-button">Request Private Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@medics4all.ai</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>San Francisco, CA</span>
+                </div>
+            </div>
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--dark-gold);">
+                <p>&copy; 2024 Medics4All.ai - Breaking language barriers in healthcare worldwide</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
