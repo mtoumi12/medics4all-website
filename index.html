@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medics4All.ai - Multilingual Medical AI for Global Healthcare</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #fff;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-menu a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #1e40af 0%, #0ea5e9 100%);
+            color: white;
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .hero-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: #10b981;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.4);
+        }
+
+        /* Problem Section */
+        .problem-section {
+            padding: 4rem 2rem;
+            background: #f8fafc;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #1e40af;
+            font-weight: 700;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .problem-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .problem-card i {
+            font-size: 3rem;
+            color: #ef4444;
+            margin-bottom: 1rem;
+        }
+
+        .problem-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #1e40af;
+        }
+
+        .stat-highlight {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin: 3rem 0;
+            border-radius: 16px;
+        }
+
+        .stat-highlight h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* Solution Section */
+        .solution-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .solution-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background: #f0f9ff;
+            padding: 2rem;
+            border-radius: 12px;
+            border: 2px solid #0ea5e9;
+            text-align: center;
+        }
+
+        .feature-card i {
+            font-size: 2.5rem;
+            color: #0ea5e9;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #1e40af;
+        }
+
+        /* Team Section */
+        .team-section {
+            padding: 4rem 2rem;
+            background: #f8fafc;
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #1e40af, #0ea5e9);
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .team-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #1e40af;
+        }
+
+        .team-card .role {
+            color: #10b981;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        /* Advisors Section */
+        .advisors-section {
+            padding: 4rem 2rem;
+            background: white;
+        }
+
+        .advisor-card {
+            background: #ecfdf5;
+            border: 2px solid #10b981;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .advisor-card .hospital {
+            color: #059669;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        /* Traction Section */
+        .traction-section {
+            padding: 4rem 2rem;
+            background: #f8fafc;
+        }
+
+        .traction-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+
+        .traction-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+
+        .traction-card .number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #1e40af;
+            display: block;
+        }
+
+        .traction-card .metric {
+            color: #10b981;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        /* Demo Section */
+        .demo-section {
+            padding: 4rem 2rem;
+            background: #1e40af;
+            color: white;
+            text-align: center;
+        }
+
+        .demo-video {
+            max-width: 800px;
+            margin: 2rem auto;
+            background: #374151;
+            padding: 2rem;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        /* Footer */
+        .footer {
+            background: #1f2937;
+            color: white;
+            padding: 3rem 2rem 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .nav-menu {
+                display: none;
+            }
+            
+            .contact-info {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <div class="logo">
+                <i class="fas fa-stethoscope"></i> Medics4All.ai
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#problem">Problem</a></li>
+                <li><a href="#solution">Solution</a></li>
+                <li><a href="#team">Team</a></li>
+                <li><a href="#demo">Demo</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <h1>Breaking Language Barriers in Healthcare</h1>
+            <p>The first AI medical scribe that enables real-time multilingual doctor-patient communication while automatically generating compliant bilingual medical records.</p>
+            <a href="#demo" class="cta-button">
+                <i class="fas fa-play"></i> Watch Demo
+            </a>
+        </div>
+    </section>
+
+    <!-- Problem Section -->
+    <section id="problem" class="problem-section">
+        <div class="container">
+            <h2 class="section-title">The Global Healthcare Language Crisis</h2>
+            <div class="problem-grid">
+                <div class="problem-card">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Communication Barriers</h3>
+                    <p>25M+ US patients and billions globally can't effectively communicate with their doctors due to language barriers, leading to medical errors and poor outcomes.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Documentation Burden</h3>
+                    <p>Doctors spend 40% of their time on paperwork, switching between languages and translation apps, reducing actual patient care time.</p>
+                </div>
+                <div class="problem-card">
+                    <i class="fas fa-gavel"></i>
+                    <h3>Compliance Costs</h3>
+                    <p>Healthcare systems face legal liability for untranslated materials. Current solutions cost $100-300 per interpreter session.</p>
+                </div>
+            </div>
+            <div class="stat-highlight">
+                <h2>$2.1 Billion</h2>
+                <p>Total addressable market for multilingual medical documentation across MENA, Africa, and US immigrant healthcare</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solution Section -->
+    <section id="solution" class="solution-section">
+        <div class="container">
+            <h2 class="section-title">Our Solution: Real-Time Medical Translation AI</h2>
+            <div class="solution-grid">
+                <div class="feature-card">
+                    <i class="fas fa-microphone"></i>
+                    <h3>Real-Time Translation</h3>
+                    <p>Doctor speaks English → Patient hears Arabic. Patient responds in Arabic → Doctor receives English translation instantly.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-file-medical"></i>
+                    <h3>Bilingual Documentation</h3>
+                    <p>Automatically generates medical records in both languages with proper medical terminology and cultural context.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Regulatory Compliance</h3>
+                    <p>Built-in CBAHI, JCI, and HIPAA compliance. Meets legal requirements for multilingual healthcare documentation.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Multi-Dialect Support</h3>
+                    <p>Optimized for Arabic, African dialects, and underserved languages that Google Translate can't handle accurately.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="team-section">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">FN</div>
+                    <h3>[Your Name]</h3>
+                    <div class="role">Founder & CEO</div>
+                    <p>Background in AI/ML and healthcare technology. Previously worked at [Your Previous Experience]. Passionate about solving global healthcare accessibility.</p>
+                </div>
+                <!-- Add more team members as needed -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Advisors Section -->
+    <section class="advisors-section">
+        <div class="container">
+            <h2 class="section-title">Clinical Advisory Board</h2>
+            <div class="team-grid">
+                <div class="advisor-card">
+                    <div class="team-avatar">DA</div>
+                    <h3>Dr. [Advisor Name]</h3>
+                    <div class="role">Senior Radiologist</div>
+                    <div class="hospital">King Faisal Specialist Hospital</div>
+                    <p>15+ years experience in medical imaging. Leading pilot deployment across Saudi Arabia.</p>
+                </div>
+                <div class="advisor-card">
+                    <div class="team-avatar">DB</div>
+                    <h3>Dr. [Advisor Name]</h3>
+                    <div class="role">Emergency Medicine</div>
+                    <div class="hospital">National Guard Hospital</div>
+                    <p>Expert in high-volume patient care and multilingual medical documentation workflows.</p>
+                </div>
+                <div class="advisor-card">
+                    <div class="team-avatar">DC</div>
+                    <h3>Dr. [Advisor Name]</h3>
+                    <div class="role">Internal Medicine</div>
+                    <div class="hospital">King Abdulaziz Medical City</div>
+                    <p>Specializes in treating diverse international patient populations in Saudi Arabia.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Traction Section -->
+    <section id="traction" class="traction-section">
+        <div class="container">
+            <h2 class="section-title">Early Traction</h2>
+            <div class="traction-grid">
+                <div class="traction-card">
+                    <span class="number">5</span>
+                    <div class="metric">Hospital Pilots Committed</div>
+                </div>
+                <div class="traction-card">
+                    <span class="number">95%</span>
+                    <div class="metric">Translation Accuracy</div>
+                </div>
+                <div class="traction-card">
+                    <span class="number">12</span>
+                    <div class="metric">Saudi Doctor Advisors</div>
+                </div>
+                <div class="traction-card">
+                    <span class="number">$465M</span>
+                    <div class="metric">Serviceable Market</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demo Section -->
+    <section id="demo" class="demo-section">
+        <div class="container">
+            <h2 class="section-title">See It In Action</h2>
+            <p>Watch how our AI handles real-time medical translation between Arabic and English</p>
+            <div class="demo-video">
+                <i class="fas fa-play-circle" style="font-size: 4rem; margin-bottom: 1rem;"></i>
+                <p style="font-size: 1.2rem; margin-bottom: 1rem;">Product Demo Video</p>
+                <p style="opacity: 0.8;">Doctor consultation: English → Arabic translation → Bilingual medical record generation</p>
+                <!-- Replace with actual video embed when ready -->
+                <div style="margin-top: 2rem;">
+                    <a href="#" class="cta-button">Request Private Demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <div class="contact-info">
+                <div class="contact-item">
+                    <i class="fas fa-envelope"></i>
+                    <span>contact@medics4all.ai</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-phone"></i>
+                    <span>+1 (555) 123-4567</span>
+                </div>
+                <div class="contact-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span>San Francisco, CA</span>
+                </div>
+            </div>
+            <div style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #374151;">
+                <p>&copy; 2024 Medics4All.ai - Breaking language barriers in healthcare worldwide</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
