@@ -348,16 +348,28 @@
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
             margin: 0 auto 2rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.2);
+            border: 3px solid var(--dark-gold);
+            overflow: hidden;
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
+        }
+
+        .team-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .team-avatar.placeholder {
             font-size: 3rem;
             font-weight: 300;
             color: var(--accent-gold);
-            box-shadow: 0 15px 50px rgba(26, 35, 50, 0.2);
-            border: 3px solid var(--dark-gold);
+            background: linear-gradient(135deg, var(--primary-navy), var(--secondary-navy));
         }
 
         .team-name {
@@ -714,13 +726,17 @@
             <h2 class="section-title">Our Team</h2>
             <div class="team-grid">
                 <div class="team-card">
-                    <div class="team-avatar">MT</div>
+                    <div class="team-avatar">
+                        <img src="MrToumi.jpg" alt="Mr. Mehdi Toumi">
+                    </div>
                     <h3 class="team-name">Mr. Mehdi Toumi</h3>
                     <div class="team-role">Founder & CEO</div>
                     <div class="team-bio">Machine Learning Engineer with expertise in Computer Vision, Signal Processing, and Data Science. Former MIT AIML Program Mentor and ex-Toshiba ML Research Engineer. PhD in Machine Learning and Computer Engineering from Illinois Institute of Technology with extensive experience in multimodal AI and healthcare applications.</div>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar">OA</div>
+                    <div class="team-avatar">
+                        <img src="MrAjayi.jpg" alt="Mr. Oluwaseun Ajayi">
+                    </div>
                     <h3 class="team-name">Mr. Oluwaseun Ajayi</h3>
                     <div class="team-role">Co-Founder & CTO</div>
                     <div class="team-bio">PhD Candidate and Graduate Research Assistant at Illinois Institute of Technology. Specialized in Electrical Engineering with focus on AI applications in healthcare. Research Assistant with 5+ years experience in machine learning and system integration projects.</div>
@@ -735,35 +751,39 @@
             <h2 class="section-title">Advisory Board</h2>
             <div class="team-grid">
                 <div class="advisor-card">
-                    <div class="team-avatar">MS</div>
+                    <div class="team-avatar">
+                        <img src="DrSaleh.jpg" alt="Dr. Maryam Saleh">
+                    </div>
                     <h3 class="team-name">Dr. Maryam Saleh</h3>
                     <div class="team-role">Executive Director</div>
                     <div class="team-hospital">Ed Kaplan Family Institute for Innovation and Tech Entrepreneurship</div>
                     <div class="team-bio">Business Strategy and Technology Transfer expert with extensive experience in generative AI, relationship development, and innovation leadership. Former VP at VPIGM and Entrepreneur in Residence at Abundant Venture Partners.</div>
                 </div>
                 <div class="advisor-card">
-                    <div class="team-avatar">MW</div>
+                    <div class="team-avatar">
+                        <img src="ProfWernick.jpg" alt="Professor Miles Wernick">
+                    </div>
                     <h3 class="team-name">Professor Miles Wernick</h3>
                     <div class="team-role">CTO & Co-Founder</div>
                     <div class="team-hospital">ADM Diagnostics</div>
                     <div class="team-bio">Leading AI product development and technical innovation for FDA-cleared medical imaging solutions. Professor Emeritus and former Director of Medical Imaging Research Center at Illinois Institute of Technology with 28+ years of experience in healthcare AI.</div>
                 </div>
                 <div class="advisor-card">
-                    <div class="team-avatar">AJ</div>
+                    <div class="team-avatar placeholder">AJ</div>
                     <h3 class="team-name">MD Anwar Jebran</h3>
                     <div class="team-role">Medical Advisor</div>
                     <div class="team-hospital">Healthcare Innovation Specialist</div>
                     <div class="team-bio">Experienced physician with expertise in medical technology integration and healthcare innovation. Provides clinical guidance and medical domain expertise for AI healthcare applications.</div>
                 </div>
                 <div class="advisor-card">
-                    <div class="team-avatar">PA</div>
+                    <div class="team-avatar placeholder">PA</div>
                     <h3 class="team-name">Peter Ackerman</h3>
                     <div class="team-role">Regulatory Affairs Advisor</div>
                     <div class="team-hospital">Novo Compliance</div>
                     <div class="team-bio">President & Founder with extensive experience in regulatory compliance for life sciences. Specializes in FDA regulations, medical devices, and combination products with deep expertise in biotechnology and pharmaceutical regulatory affairs.</div>
                 </div>
                 <div class="advisor-card">
-                    <div class="team-avatar">AS</div>
+                    <div class="team-avatar placeholder">AS</div>
                     <h3 class="team-name">Aicha Salman</h3>
                     <div class="team-role">Remote Multilingual Medical Interpreter</div>
                     <div class="team-hospital">Language Services Expert</div>
@@ -779,28 +799,36 @@
             <h2 class="section-title">Clinical Collaborators</h2>
             <div class="team-grid">
                 <div class="team-card">
-                    <div class="team-avatar">YM</div>
+                    <div class="team-avatar">
+                        <img src="MDYazid.jpg" alt="MD Yazid Mughrabi">
+                    </div>
                     <h3 class="team-name">MD Yazid Mughrabi</h3>
                     <div class="team-role">Board-Certified Neurosurgeon</div>
                     <div class="team-hospital">Ministry of National Guard Health Affairs (MNGHA)</div>
                     <div class="team-bio">Staff Physician in Neurosurgery specializing in neurotrauma and pediatric neurosurgery. Neurosurgery Resident at King Faisal Specialist Hospital and Research Center with 6+ years of experience in complex surgical procedures and multilingual patient care.</div>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar">UA</div>
+                    <div class="team-avatar">
+                        <img src="DrUmar.jpg" alt="MD Umar Alabasi">
+                    </div>
                     <h3 class="team-name">MD Umar Alabasi</h3>
                     <div class="team-role">Assistant Professor</div>
                     <div class="team-hospital">King AbdulAziz University - Department of Physical Therapy</div>
                     <div class="team-bio">PhD in Rehabilitation Science from University of Florida with expertise in clinical research and sports injuries. Head of Department with extensive experience in curriculum development and academic leadership in healthcare education.</div>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar">RA</div>
+                    <div class="team-avatar">
+                        <img src="MDReem.jpg" alt="Dr. Reem Almutairy">
+                    </div>
                     <h3 class="team-name">Dr. Reem Almutairy</h3>
                     <div class="team-role">Infectious Diseases Clinical Pharmacy Specialist</div>
                     <div class="team-hospital">King Fahad Armed Forces Hospital</div>
                     <div class="team-bio">Doctor of Pharmacy (PharmD) from King AbdulAziz University with specialization in infectious diseases clinical pharmacy. Clinical Pharmacist and Pharmacy Practice Resident with expertise in antimicrobial stewardship and clinical research.</div>
                 </div>
                 <div class="team-card">
-                    <div class="team-avatar">AA</div>
+                    <div class="team-avatar">
+                        <img src="DrArwa.jpg" alt="Dr. Arwa Alsubait">
+                    </div>
                     <h3 class="team-name">Dr. Arwa Alsubait</h3>
                     <div class="team-role">Biomedical Scientist & Deputy Chairman</div>
                     <div class="team-hospital">King Abdullah International Medical Research Center (KAIMRC)</div>
