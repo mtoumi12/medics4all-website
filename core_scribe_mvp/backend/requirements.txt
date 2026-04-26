@@ -1,0 +1,15 @@
+# Core
+fastapi>=0.115,<0.120
+uvicorn[standard]>=0.34,<1.0
+pydantic>=2.6,<3.0
+pydantic-settings>=2.2,<3.0
+sqlalchemy>=2.0,<3.0
+python-multipart>=0.0.9,<1.0
+
+# Cloud providers (Profile A: openai/openai)
+# Also used by the Ollama provider via its OpenAI-compatible /v1 endpoint.
+openai>=1.40,<2.0
+
+# Local ASR (Profile B: local). Comment out if you only use cloud.
+# CTranslate2-backed Whisper — runs efficiently on Apple Silicon and CPUs.
+faster-whisper>=1.0,<2.0

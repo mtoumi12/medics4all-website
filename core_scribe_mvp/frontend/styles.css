@@ -1,0 +1,79 @@
+/* Pipeline step pill states */
+.pipeline-step {
+  border: 1px solid rgb(226 232 240);
+  background: white;
+  color: rgb(100 116 139);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  position: relative;
+  transition: all 200ms ease;
+}
+.pipeline-step.active {
+  background: #1e40af;
+  border-color: #1e3a8a;
+  color: white;
+  box-shadow: 0 4px 6px -1px rgb(30 64 175 / 0.4);
+}
+.pipeline-step.done {
+  background: rgb(16 185 129);
+  border-color: rgb(5 150 105);
+  color: white;
+}
+.pipeline-step.error {
+  background: rgb(220 38 38);
+  border-color: rgb(185 28 28);
+  color: white;
+}
+.pipeline-step.active::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  right: -3px;
+  width: 8px;
+  height: 8px;
+  background: #f97316;
+  border-radius: 50%;
+  animation: pulse-dot 1s infinite;
+}
+@keyframes pulse-dot {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.4);
+    opacity: 0.6;
+  }
+}
+
+/* Recording button glow */
+.recording {
+  animation: rec-pulse 1.4s infinite;
+}
+@keyframes rec-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(220 38 38 / 0.7);
+  }
+  50% {
+    box-shadow: 0 0 0 16px rgb(220 38 38 / 0);
+  }
+}
+
+/* Scrollbars */
+pre::-webkit-scrollbar,
+textarea::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+pre::-webkit-scrollbar-thumb,
+textarea::-webkit-scrollbar-thumb {
+  background: rgb(203 213 225);
+  border-radius: 4px;
+}
