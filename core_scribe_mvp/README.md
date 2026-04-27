@@ -87,6 +87,33 @@ bash run.sh
 
 The launcher sets `KMP_DUPLICATE_LIB_OK=TRUE` because conda envs commonly load multiple OpenMP runtimes (PyTorch + ctranslate2). Harmless, but required to boot cleanly.
 
+### 3b. Run with Docker (recommended for collaborators)
+
+Prerequisites: [Docker](https://docs.docker.com/get-docker/) and [Docker Compose](https://docs.docker.com/compose/) v2.
+
+```bash
+cd core_scribe_mvp
+cp .env.example .env
+# Edit .env: set OPENAI_API_KEY for cloud mode, or use local ASR/LLM (see below)
+docker compose up --build
+```
+
+Open <http://127.0.0.1:8000>. The API and static UI are served on port 8000.
+
+- **Data persistence:** Compose mounts a named volume at `/data` (inside the container). SQLite, uploaded audio, and the Hugging Face / faster-whisper model cache all live there, so they survive `docker compose down` (the volume is not removed unless you run `docker volume rm`).
+
+- **Ollama in Docker** (fully local LLM, separate container): add to `.env`  
+  `ASR_PROVIDER=local`, `LLM_PROVIDER=ollama`, `OLLAMA_BASE_URL=http://ollama:11434/v1`, and your `OLLAMA_MODEL=…`. Then:
+
+  ```bash
+  docker compose --profile ollama up --build
+  docker compose --profile ollama exec ollama ollama pull llama3.1:8b   # first time only
+  ```
+
+- **Cloud-only, no Ollama:** `docker compose up --build` (default profile) is enough. Pass your key via `.env` or `docker compose run -e OPENAI_API_KEY=…` as you prefer.
+
+- **Plain `docker run`:** see the header comments in [`Dockerfile`](Dockerfile).
+
 ### 4. Open the UI
 
 Open <http://127.0.0.1:8000> in Chrome or Firefox. The header pill shows the active profile:
@@ -154,6 +181,9 @@ The local pipeline uses **zero external network**. Audio + transcript + SOAP dra
 ```
 core_scribe_mvp/
 ├── README.md              # this file
+├── Dockerfile             # image: API + static UI (port 8000)
+├── docker-compose.yml     # optional Ollama profile, persisted /data volume
+├── .dockerignore
 ├── .env.example           # three profile presets (Cloud / Local / Hybrid)
 ├── backend/
 │   ├── app/

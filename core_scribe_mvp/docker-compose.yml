@@ -1,0 +1,51 @@
+# Medics4ALL Core Scribe — one-command local stack
+#
+# From this directory (core_scribe_mvp/):
+#   cp .env.example .env
+#   # Set OPENAI_API_KEY for cloud, or set ASR_PROVIDER=local + LLM_PROVIDER=ollama
+#   docker compose up --build
+# Open http://127.0.0.1:8000
+#
+# With local LLM (Ollama in a sibling container), add to your .env:
+#   ASR_PROVIDER=local
+#   LLM_PROVIDER=ollama
+#   OLLAMA_BASE_URL=http://ollama:11434/v1
+#   OLLAMA_MODEL=llama3.1:8b
+# Then: docker compose --profile ollama up --build
+# First time only — pull a model: docker compose --profile ollama exec ollama ollama pull llama3.1:8b
+
+services:
+  scribe:
+    build: .
+    image: medics4all-core-scribe:local
+    ports:
+      - "8000:8000"
+    environment:
+      MEDICS4ALL_DATA: /data
+      HF_HOME: /data/huggingface
+      CORS_ORIGINS: "http://127.0.0.1:8000,http://localhost:8000,http://127.0.0.1:3000,http://localhost:3000"
+    env_file:
+      - .env
+    volumes:
+      - medics4all_persist:/data
+    # When using --profile ollama, start Ollama first or retry once it is ready.
+
+  ollama:
+    image: ollama/ollama:latest
+    profiles: ["ollama"]
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    # GPU (optional, Linux + NVIDIA)
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
+
+volumes:
+  medics4all_persist:
+  ollama_data:

@@ -1,0 +1,36 @@
+# Git / IDE
+.git
+.gitignore
+.idea
+.vscode
+Thumbs.db
+.DS_Store
+
+# Python
+__pycache__/
+**/__pycache__/
+**/*.pyc
+**/.pytest_cache
+.venv
+venv
+*.egg-info
+.pytest_cache
+
+# Local secrets and runtime (never copy into the image)
+.env
+**/.env
+*.db
+**/*.db
+**/*.sqlite
+**/*.sqlite3
+storage
+**/storage
+medics4all.db
+
+# Docs and assets not needed to run the server
+*.md
+!README.md
+
+# Large / generated (keep image lean)
+**/*.pdf
+**/*.png

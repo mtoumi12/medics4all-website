@@ -17,7 +17,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
-from pydantic import Field
+from pydantic import AliasChoices, Field, model_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -40,6 +40,13 @@ class Settings(BaseSettings):
     )
 
     # --- Storage ---
+    # In Docker, set MEDICS4ALL_DATA=/data and mount a named volume there so SQLite
+    # and upload audio survive container restarts. Otherwise paths live under the
+    # project root (../.. from this file).
+    data_dir: Optional[Path] = Field(
+        default=None,
+        validation_alias=AliasChoices("MEDICS4ALL_DATA", "DATA_DIR"),
+    )
     database_url: str = Field(default=f"sqlite:///{ROOT / 'medics4all.db'}")
     audio_storage_dir: Path = Field(default=ROOT / "storage" / "audio")
 
@@ -77,6 +84,18 @@ class Settings(BaseSettings):
     @property
     def cors_origin_list(self) -> list[str]:
         return [o.strip() for o in self.cors_origins.split(",") if o.strip()]
+
+    @model_validator(mode="after")
+    def _with_data_dir(self) -> "Settings":
+        if self.data_dir is None:
+            return self
+        b = self.data_dir.resolve()
+        return self.model_copy(
+            update={
+                "database_url": f"sqlite:///{b / 'medics4all.db'}",
+                "audio_storage_dir": b / "storage" / "audio",
+            }
+        )
 
     # ------- runtime checks -------
 
