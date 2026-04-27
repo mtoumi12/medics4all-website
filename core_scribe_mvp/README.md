@@ -8,6 +8,8 @@ This is the **Tier 1 product** described in [`../medics4all_architecture_busines
 - validate the SOAP-note quality with a clinical advisor,
 - and serve as the foundation that the Tier 2 (multilingual / Translate plug-in) layers onto without rewrites.
 
+**Sharing with collaborators:** use **[SHARING.md](SHARING.md)** — what to send (and what never to send), Docker vs native setup, `.env` choices, and a short verification checklist.
+
 ---
 
 ## What it does (end-to-end)
@@ -181,6 +183,7 @@ The local pipeline uses **zero external network**. Audio + transcript + SOAP dra
 ```
 core_scribe_mvp/
 ├── README.md              # this file
+├── SHARING.md             # step-by-step handoff for collaborators
 ├── Dockerfile             # image: API + static UI (port 8000)
 ├── docker-compose.yml     # optional Ollama profile, persisted /data volume
 ├── .dockerignore
