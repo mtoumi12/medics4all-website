@@ -52,6 +52,8 @@ class Settings(BaseSettings):
 
     # --- ASR provider: openai | local | mock ---
     asr_provider: str = Field(default="openai")
+    # Enable speaker diarization (Doctor/Patient separation)
+    enable_diarization: bool = Field(default=True)
 
     # OpenAI Whisper (cloud)
     openai_api_key: str = Field(default="")

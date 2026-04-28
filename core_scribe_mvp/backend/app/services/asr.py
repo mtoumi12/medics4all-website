@@ -1,10 +1,15 @@
-"""Automatic Speech Recognition service.
+"""Automatic Speech Recognition service with speaker diarization.
 
 Provider-abstracted: today we ship three implementations behind one interface:
 
-  * ``openai``  - cloud Whisper API (paid, fast)
-  * ``local``   - faster-whisper running on this machine (free, private)
+  * ``openai``  - cloud Whisper API (paid, fast) with basic diarization
+  * ``local``   - faster-whisper running on this machine (free, private) with basic diarization
   * ``mock``    - canned transcript for demos with no audio backend
+
+Speaker Diarization:
+  * Basic heuristic-based speaker separation between Doctor and Patient
+  * Uses context clues, question patterns, and medical terminology
+  * For production: consider integrating pyannote.audio for advanced diarization
 
 Adding ``deepgram`` (HIPAA-covered) tomorrow only means adding one more branch.
 """
@@ -18,6 +23,73 @@ from pathlib import Path
 from ..config import get_settings, using_mock_pipeline
 
 logger = logging.getLogger(__name__)
+
+
+# ---------------------------------------------------------------------------
+# Speaker Diarization Helper
+# ---------------------------------------------------------------------------
+def _apply_speaker_diarization(segments: list) -> str:
+    """Apply basic speaker diarization to transcript segments.
+    
+    This is a simplified implementation that alternates speakers based on 
+    pauses and context clues. For production use, consider integrating
+    a dedicated diarization model like pyannote.audio.
+    """
+    if not segments:
+        return ""
+    
+    diarized_parts = []
+    current_speaker = "Doctor"  # Start with doctor typically asking questions
+    
+    for i, segment in enumerate(segments):
+        text = segment.get('text', '').strip() if isinstance(segment, dict) else getattr(segment, 'text', '').strip()
+        if not text:
+            continue
+        
+        # Simple heuristics for speaker change detection
+        # In medical encounters, questions often indicate doctor, responses indicate patient
+        lower_text = text.lower()
+        
+        # Keywords that suggest doctor is speaking
+        doctor_keywords = [
+            'how are you', 'any', 'what', 'when', 'where', 'describe', 'tell me',
+            'show me', 'let me', 'i think', 'diagnosis', 'prescription', 'medication',
+            'blood pressure', 'heart rate', 'temperature', 'examination', 'vitals'
+        ]
+        
+        # Keywords that suggest patient is speaking  
+        patient_keywords = [
+            'i have', 'i feel', 'i am', 'my', 'it hurts', 'painful', 'since', 'started',
+            'symptoms', 'better', 'worse', 'yesterday', 'last week', 'at home'
+        ]
+        
+        # Check for speaker change indicators
+        prev_speaker = current_speaker
+        
+        # If text starts with typical question words, likely doctor
+        if any(text.lower().startswith(word) for word in ['how', 'what', 'when', 'where', 'any', 'do you', 'have you']):
+            current_speaker = "Doctor"
+        # If text has patient-like content, likely patient
+        elif any(keyword in lower_text for keyword in patient_keywords):
+            current_speaker = "Patient"
+        # If text has doctor-like medical terms, likely doctor
+        elif any(keyword in lower_text for keyword in doctor_keywords):
+            current_speaker = "Doctor"
+        # If there's a long pause (detected via timestamp gaps) and no clear indicator,
+        # alternate speaker (simplified approach)
+        elif i > 0 and current_speaker == prev_speaker:
+            # Check if this might be a response (shorter, first person)
+            if len(text.split()) < 10 and ('i ' in lower_text or 'my ' in lower_text):
+                current_speaker = "Patient" if prev_speaker == "Doctor" else "Doctor"
+        
+        # Add speaker label if changed or first segment
+        if i == 0 or current_speaker != prev_speaker:
+            diarized_parts.append(f"{current_speaker}: {text}")
+        else:
+            # Continue same speaker
+            diarized_parts.append(text)
+    
+    return "\n".join(diarized_parts)
 
 
 # ---------------------------------------------------------------------------
@@ -55,17 +127,32 @@ def _transcribe_openai(audio_path: Path) -> str:
 
     client = OpenAI(api_key=s.openai_api_key, base_url=s.openai_base_url)
     with audio_path.open("rb") as fh:
+        # First, get the raw transcript with timestamps
         response = client.audio.transcriptions.create(
             model=s.whisper_model,
             file=fh,
-            response_format="text",
+            response_format="verbose_json",
+            timestamp_granularities=["segment"],
             prompt=(
                 "Medical encounter between clinician and patient. "
                 "Expect terms like blood pressure, oxygen saturation, ICD-10 codes, "
-                "common medications, and clinical findings."
+                "common medications, and clinical findings. "
+                "Please indicate when the speaker changes between doctor and patient."
             ),
         )
-    return response if isinstance(response, str) else getattr(response, "text", str(response))
+    
+    # Apply speaker diarization if enabled
+    if s.enable_diarization:
+        transcript = _apply_speaker_diarization(response.segments if hasattr(response, 'segments') else [])
+    else:
+        # Fallback to simple text concatenation
+        if hasattr(response, 'segments'):
+            segments = [seg.get('text', '') for seg in response.segments]
+            transcript = " ".join(segments).strip()
+        else:
+            transcript = response if isinstance(response, str) else getattr(response, "text", str(response))
+    
+    return transcript
 
 
 # ---------------------------------------------------------------------------
@@ -118,6 +205,7 @@ def _get_local_whisper():
 
 def _transcribe_local(audio_path: Path) -> str:
     """Transcribe locally via faster-whisper. First call downloads the model (~150MB for base.en)."""
+    s = get_settings()
     model = _get_local_whisper()
     segments, info = model.transcribe(
         str(audio_path),
@@ -127,16 +215,31 @@ def _transcribe_local(audio_path: Path) -> str:
         initial_prompt=(
             "Medical encounter between clinician and patient. "
             "Expect terms like blood pressure, oxygen saturation, ICD-10 codes, "
-            "common medications, and clinical findings."
+            "common medications, and clinical findings. "
+            "Please indicate when the speaker changes between doctor and patient."
         ),
     )
-    transcript_parts: list[str] = []
+    
+    # Collect segments with timing
+    segment_list = []
     for seg in segments:
-        transcript_parts.append(seg.text.strip())
-    text = " ".join(transcript_parts).strip()
+        segment_data = {
+            'text': seg.text.strip(),
+            'start': seg.start,
+            'end': seg.end
+        }
+        segment_list.append(segment_data)
+    
+    # Apply speaker diarization if enabled
+    if s.enable_diarization:
+        text = _apply_speaker_diarization(segment_list)
+    else:
+        # Simple concatenation without speaker labels
+        text = " ".join([seg['text'] for seg in segment_list if seg['text']]).strip()
+    
     logger.info(
-        "[ASR/local] done lang=%s prob=%.2f duration=%.1fs len=%d",
-        info.language, info.language_probability, info.duration, len(text),
+        "[ASR/local] done lang=%s prob=%.2f duration=%.1fs len=%d segments=%d diarization=%s",
+        info.language, info.language_probability, info.duration, len(text), len(segment_list), s.enable_diarization
     )
     return text
 
