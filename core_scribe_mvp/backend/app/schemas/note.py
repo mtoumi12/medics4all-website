@@ -2,13 +2,17 @@ from __future__ import annotations
 
 from datetime import datetime
 
-from pydantic import BaseModel, ConfigDict, Field
+from pydantic import BaseModel, ConfigDict, Field, field_validator
 
 from ..models.note import NoteStatus
 
 
 class SOAPDraft(BaseModel):
-    """The structured payload returned by the LLM."""
+    """The structured payload returned by the LLM.
+    
+    Local LLMs sometimes return lists instead of strings for text fields;
+    validators automatically convert lists → strings for robustness.
+    """
 
     subjective: str = ""
     objective: str = ""
@@ -17,6 +21,43 @@ class SOAPDraft(BaseModel):
     chief_complaint: str | None = None
     icd10_codes: list[str] = Field(default_factory=list)
     medications: list[str] = Field(default_factory=list)
+
+    @field_validator("subjective", "objective", "assessment", "plan", mode="before")
+    @classmethod
+    def _coerce_text_fields(cls, v):
+        """Convert lists to strings for LLMs that return arrays instead of text."""
+        if isinstance(v, list):
+            # Join with bullet points for better clinical formatting
+            if not v:
+                return ""
+            return "\n".join(f"• {item}" if not item.startswith(("•", "-", "*")) else item for item in v)
+        return v or ""
+    
+    @field_validator("chief_complaint", mode="before")
+    @classmethod
+    def _coerce_chief_complaint(cls, v):
+        """Convert lists to strings for chief complaint."""
+        if isinstance(v, list):
+            return " ".join(str(item) for item in v) if v else None
+        return v
+    
+    @field_validator("icd10_codes", "medications", mode="before")
+    @classmethod
+    def _coerce_list_fields(cls, v):
+        """Convert strings to lists for codes/medications, or ensure lists."""
+        if isinstance(v, str):
+            # Split on common delimiters and clean up
+            if not v.strip():
+                return []
+            # Split by comma, semicolon, or newline
+            items = [item.strip() for item in v.replace(";", ",").split(",") if item.strip()]
+            if not items:
+                # Try splitting by newlines
+                items = [item.strip() for item in v.split("\n") if item.strip()]
+            return items
+        elif isinstance(v, list):
+            return [str(item).strip() for item in v if str(item).strip()]
+        return v or []
 
 
 class NoteUpdate(BaseModel):
