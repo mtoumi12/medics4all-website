@@ -92,6 +92,7 @@ function reflectPipelineStatus(status, errorMsg) {
     });
     $('visit-meta').classList.remove('hidden');
     $('visit-meta').textContent = `Pipeline error: ${errorMsg || 'unknown'}`;
+    $('transcript-pre').textContent = `Pipeline error: ${errorMsg || 'unknown'}`;
     return;
   }
   const idx = STEP_ORDER.indexOf(upper);
@@ -100,6 +101,35 @@ function reflectPipelineStatus(status, errorMsg) {
     if (i < idx) setStepState(s, 'done');
     else if (i === idx) setStepState(s, upper === 'READY' ? 'done' : 'active');
   });
+
+  // Update transcript section to reflect current pipeline status
+  updateTranscriptStatus(upper);
+}
+
+function updateTranscriptStatus(status) {
+  const statusMessages = {
+    'UPLOADING': 'Audio uploaded — processing will begin shortly...',
+    'TRANSCRIBING': 'Converting audio to text — this may take a minute...',
+    'SUMMARIZING': 'Generating SOAP note from transcript — almost done...',
+    'READY': null // Will be handled by loadVisitAndNote()
+  };
+
+  const recordStateMessages = {
+    'UPLOADING': 'Processing audio upload...',
+    'TRANSCRIBING': 'Transcribing audio to text...',
+    'SUMMARIZING': 'Generating SOAP note...',
+    'READY': null // Will be handled by loadVisitAndNote()
+  };
+
+  const message = statusMessages[status];
+  const recordMessage = recordStateMessages[status];
+  
+  if (message) {
+    $('transcript-pre').textContent = message;
+  }
+  if (recordMessage) {
+    $('record-state').textContent = recordMessage;
+  }
 }
 
 // ------------------------- health check ------------------------------------
@@ -230,6 +260,8 @@ async function uploadAudio(blob) {
   });
 
   $('upload-label').textContent = 'Upload complete — pipeline running…';
+  $('transcript-pre').textContent = 'Audio uploaded — processing will begin shortly...';
+  $('record-state').textContent = 'Processing audio upload...';
   startPolling();
 }
 
@@ -245,6 +277,7 @@ function startPolling() {
         await loadVisitAndNote();
       } else if (s.status === 'error') {
         clearInterval(state.pollHandle);
+        $('record-state').textContent = `Processing failed: ${s.error_message}`;
         toast(`Pipeline error: ${s.error_message}`, 'error');
       }
     } catch (e) {
@@ -271,7 +304,7 @@ async function loadVisitAndNote() {
 
   $('note-status').textContent = note.status;
   $('note-card').classList.remove('opacity-50', 'pointer-events-none');
-  $('record-state').textContent = 'Done — note ready for review';
+  $('record-state').textContent = 'Processing complete — note ready for review';
   toast('SOAP note ready for review', 'success');
 }
 
