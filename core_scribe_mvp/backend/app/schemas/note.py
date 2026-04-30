@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from datetime import datetime
+from typing import Optional
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator
 
@@ -9,7 +10,7 @@ from ..models.note import NoteStatus
 
 class SOAPDraft(BaseModel):
     """The structured payload returned by the LLM.
-    
+
     Local LLMs sometimes return lists instead of strings for text fields;
     validators automatically convert lists → strings for robustness.
     """
@@ -18,21 +19,23 @@ class SOAPDraft(BaseModel):
     objective: str = ""
     assessment: str = ""
     plan: str = ""
-    chief_complaint: str | None = None
-    icd10_codes: list[str] = Field(default_factory=list)
-    medications: list[str] = Field(default_factory=list)
+    chief_complaint: Optional[str] = None
+    icd10_codes: list = Field(default_factory=list)
+    medications: list = Field(default_factory=list)
 
     @field_validator("subjective", "objective", "assessment", "plan", mode="before")
     @classmethod
     def _coerce_text_fields(cls, v):
         """Convert lists to strings for LLMs that return arrays instead of text."""
         if isinstance(v, list):
-            # Join with bullet points for better clinical formatting
             if not v:
                 return ""
-            return "\n".join(f"• {item}" if not item.startswith(("•", "-", "*")) else item for item in v)
+            return "\n".join(
+                f"• {item}" if not item.startswith(("•", "-", "*")) else item
+                for item in v
+            )
         return v or ""
-    
+
     @field_validator("chief_complaint", mode="before")
     @classmethod
     def _coerce_chief_complaint(cls, v):
@@ -40,19 +43,16 @@ class SOAPDraft(BaseModel):
         if isinstance(v, list):
             return " ".join(str(item) for item in v) if v else None
         return v
-    
+
     @field_validator("icd10_codes", "medications", mode="before")
     @classmethod
     def _coerce_list_fields(cls, v):
         """Convert strings to lists for codes/medications, or ensure lists."""
         if isinstance(v, str):
-            # Split on common delimiters and clean up
             if not v.strip():
                 return []
-            # Split by comma, semicolon, or newline
             items = [item.strip() for item in v.replace(";", ",").split(",") if item.strip()]
             if not items:
-                # Try splitting by newlines
                 items = [item.strip() for item in v.split("\n") if item.strip()]
             return items
         elif isinstance(v, list):
@@ -61,11 +61,11 @@ class SOAPDraft(BaseModel):
 
 
 class NoteUpdate(BaseModel):
-    subjective: str | None = None
-    objective: str | None = None
-    assessment: str | None = None
-    plan: str | None = None
-    chief_complaint: str | None = None
+    subjective: Optional[str] = None
+    objective: Optional[str] = None
+    assessment: Optional[str] = None
+    plan: Optional[str] = None
+    chief_complaint: Optional[str] = None
 
 
 class SignNoteIn(BaseModel):
@@ -81,11 +81,11 @@ class NoteOut(BaseModel):
     objective: str
     assessment: str
     plan: str
-    chief_complaint: str | None
-    icd10_codes: str | None
-    medications: str | None
+    chief_complaint: Optional[str]
+    icd10_codes: Optional[str]
+    medications: Optional[str]
     status: NoteStatus
-    signed_by: str | None
-    signed_at: datetime | None
+    signed_by: Optional[str]
+    signed_at: Optional[datetime]
     created_at: datetime
     updated_at: datetime

@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import logging
 from pathlib import Path
+from typing import Optional
 
 from sqlalchemy.orm import Session
 
@@ -19,7 +20,7 @@ from .summarizer import summarize_to_soap
 logger = logging.getLogger(__name__)
 
 
-def _set_status(db: Session, visit: Visit, status: VisitStatus, error: str | None = None) -> None:
+def _set_status(db: Session, visit: Visit, status: VisitStatus, error: Optional[str] = None) -> None:
     visit.status = status
     visit.error_message = error
     db.add(visit)
