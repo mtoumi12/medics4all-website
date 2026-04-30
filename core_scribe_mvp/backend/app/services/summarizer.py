@@ -13,6 +13,7 @@ from __future__ import annotations
 import json
 import logging
 import re
+from typing import Optional
 
 from ..config import get_settings, using_mock_pipeline
 from ..schemas.note import SOAPDraft
@@ -80,10 +81,10 @@ def _coerce_json(content: str) -> dict:
 # ---------------------------------------------------------------------------
 def _summarize_via_openai_compat(
     transcript: str,
-    chief_complaint_hint: str | None,
+    chief_complaint_hint: Optional[str],
     *,
     api_key: str,
-    base_url: str | None,
+    base_url: Optional[str],
     model: str,
     use_json_mode: bool,
 ) -> SOAPDraft:
@@ -122,7 +123,7 @@ def _summarize_via_openai_compat(
     return SOAPDraft(**data)
 
 
-def _summarize_openai(transcript: str, hint: str | None) -> SOAPDraft:
+def _summarize_openai(transcript: str, hint: Optional[str]) -> SOAPDraft:
     s = get_settings()
     return _summarize_via_openai_compat(
         transcript, hint,
@@ -133,7 +134,7 @@ def _summarize_openai(transcript: str, hint: str | None) -> SOAPDraft:
     )
 
 
-def _summarize_ollama(transcript: str, hint: str | None) -> SOAPDraft:
+def _summarize_ollama(transcript: str, hint: Optional[str]) -> SOAPDraft:
     """Use Ollama via its OpenAI-compatible endpoint at /v1.
 
     Ollama supports JSON mode for most recent models, but smaller models can
@@ -153,7 +154,7 @@ def _summarize_ollama(transcript: str, hint: str | None) -> SOAPDraft:
 # ---------------------------------------------------------------------------
 # Mock
 # ---------------------------------------------------------------------------
-def _summarize_mock(transcript: str, hint: str | None) -> SOAPDraft:
+def _summarize_mock(transcript: str, hint: Optional[str]) -> SOAPDraft:
     logger.warning("[LLM] mock pipeline active — returning canned SOAP draft")
     return SOAPDraft(
         chief_complaint=hint or "Persistent dry cough x10 days with mild dyspnea on exertion.",
@@ -194,7 +195,7 @@ def _summarize_mock(transcript: str, hint: str | None) -> SOAPDraft:
 # ---------------------------------------------------------------------------
 # Public entry-point
 # ---------------------------------------------------------------------------
-def summarize_to_soap(transcript: str, chief_complaint_hint: str | None = None) -> SOAPDraft:
+def summarize_to_soap(transcript: str, chief_complaint_hint: Optional[str] = None) -> SOAPDraft:
     if using_mock_pipeline():
         return _summarize_mock(transcript, chief_complaint_hint)
 
