@@ -5,6 +5,8 @@ pydantic>=2.6,<3.0
 pydantic-settings>=2.2,<3.0
 sqlalchemy>=2.0,<3.0
 python-multipart>=0.0.9,<1.0
+# Required on Python 3.9 so Pydantic v2 can evaluate `X | None` annotations
+eval_type_backport>=0.2,<1.0
 
 # Cloud providers (Profile A: openai/openai)
 # Also used by the Ollama provider via its OpenAI-compatible /v1 endpoint.
